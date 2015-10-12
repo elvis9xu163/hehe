@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+                       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                       http://www.springframework.org/schema/context
+                       http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                       http://www.springframework.org/schema/aop
+                       http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+                       http://www.springframework.org/schema/tx
+                       http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+                       http://www.springframework.org/schema/jdbc
+                       http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+                       http://www.springframework.org/schema/jee
+                       http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
+
+	<context:property-placeholder file-encoding="UTF-8" location="file:/data/data/conf/mongodb.properties" />
+
+	<bean id="mongoClient" class="com.mongodb.MongoClient" destroy-method="close">
+		<constructor-arg type="java.lang.String" value="${mongodb.host}"/>
+		<constructor-arg type="int" value="${mongodb.port}"/>
+	</bean>
+
+	<bean id="morphia" class="org.mongodb.morphia.Morphia"/>
+
+	<bean id="datastore" factory-bean="morphia" factory-method="createDatastore">
+		<constructor-arg ref="mongoClient"/>
+		<constructor-arg value="${mongodb.db}"/>
+	</bean>
+
+	<bean class="com.xjd.hehe.dal.mongodb.MorphiaIniter">
+		<constructor-arg ref="morphia"/>
+		<constructor-arg ref="datastore"/>
+		<constructor-arg value="com.xjd.hehe.dal.mongodb.model"/>
+	</bean>
+
+	<context:component-scan base-package="com.xjd.hehe.dal.mongodb.dao" />
+
+</beans>
