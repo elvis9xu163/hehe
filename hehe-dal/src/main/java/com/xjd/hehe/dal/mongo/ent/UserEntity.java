@@ -150,7 +150,7 @@ public class UserEntity extends BaseEntity {
 		private String avatar;
 
 		/** 来源平台：0-自身, 10-哈哈 */
-		private String from;
+		private Byte from;
 
 		/** 添加时间 */
 		private Date ctime;
@@ -179,11 +179,11 @@ public class UserEntity extends BaseEntity {
 			this.avatar = avatar;
 		}
 
-		public String getFrom() {
+		public Byte getFrom() {
 			return from;
 		}
 
-		public void setFrom(String from) {
+		public void setFrom(Byte from) {
 			this.from = from;
 		}
 

@@ -47,5 +47,4 @@ public class TopicEntity extends BaseEntity {
 	public void setNuser(Integer nuser) {
 		this.nuser = nuser;
 	}
-
 }

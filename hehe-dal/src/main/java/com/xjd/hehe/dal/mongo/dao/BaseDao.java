@@ -1,5 +1,8 @@
 package com.xjd.hehe.dal.mongo.dao;
 
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.query.Query;
+
 public abstract class BaseDao<T> {
 	protected Class<T> entityClass;
 	protected MongoDao mongoDao;
@@ -16,12 +19,20 @@ public abstract class BaseDao<T> {
 	public MongoDao getMongoDao() {
 		return mongoDao;
 	}
+	
+	public Datastore getDatastore() {
+		return getMongoDao().getDatastore();
+	}
+	
+	public Query<T> createQuery() {
+		return getDatastore().createQuery(getEntityClass());
+	}
 
 	public void save(T entity) {
-		mongoDao.save(entity);
+		getMongoDao().save(entity);
 	}
 
 	public T get(String id) {
-		return mongoDao.get(entityClass, id);
+		return getMongoDao().get(entityClass, id);
 	}
 }

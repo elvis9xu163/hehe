@@ -15,6 +15,14 @@ public class MongoDao {
 	@Autowired
 	protected MongoClient mongoClient;
 
+	public Datastore getDatastore() {
+		return datastore;
+	}
+
+	public MongoClient getMongoClient() {
+		return mongoClient;
+	}
+
 	public <T> void save(T entity) {
 		datastore.save(entity);
 	}

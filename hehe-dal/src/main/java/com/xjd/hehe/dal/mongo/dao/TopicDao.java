@@ -13,4 +13,7 @@ public class TopicDao extends BaseDao<TopicEntity> {
 		super(TopicEntity.class, mongoDao);
 	}
 
+	public TopicEntity getByName(String name) {
+		return createQuery().filter("name =", name).get();
+	}
 }

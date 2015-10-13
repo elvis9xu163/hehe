@@ -13,4 +13,7 @@ public class ImgDao extends BaseDao<ImgEntity> {
 		super(ImgEntity.class, mongoDao);
 	}
 
+	public ImgEntity getByRefUrl(String url) {
+		return createQuery().filter("refUrl =", url).get();
+	}
 }
