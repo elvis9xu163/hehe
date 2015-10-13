@@ -32,6 +32,9 @@ public class JokeEntity extends BaseEntity {
 	/** 评论数 */
 	private Integer ncmt = 0;
 
+	/** 父joke id */
+	private String pjid;
+
 	/** 来源平台：0-自身, 10-哈哈 */
 	private Byte from = 0;
 
@@ -129,6 +132,14 @@ public class JokeEntity extends BaseEntity {
 		this.ref = ref;
 	}
 
+	public String getPjid() {
+		return pjid;
+	}
+
+	public void setPjid(String pjid) {
+		this.pjid = pjid;
+	}
+
 	public static class Ref {
 		/** ID */
 		private String id;
@@ -140,6 +151,8 @@ public class JokeEntity extends BaseEntity {
 		private Integer bad = 0;
 		/** 评论数 */
 		private Integer cmt = 0;
+		/** 发布时间 */
+		private String ptime;
 
 		public String getId() {
 			return id;
@@ -181,5 +194,12 @@ public class JokeEntity extends BaseEntity {
 			this.cmt = cmt;
 		}
 
+		public String getPtime() {
+			return ptime;
+		}
+
+		public void setPtime(String ptime) {
+			this.ptime = ptime;
+		}
 	}
 }

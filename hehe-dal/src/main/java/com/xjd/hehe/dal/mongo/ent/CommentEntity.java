@@ -13,6 +13,9 @@ public class CommentEntity extends BaseEntity {
 	/** 回复的commentId */
 	private String cid;
 
+	/** 文字内容 */
+	private String txt;
+
 	/** 点赞数 */
 	private Integer ngood = 0;
 
@@ -101,6 +104,14 @@ public class CommentEntity extends BaseEntity {
 
 	public void setRef(Ref ref) {
 		this.ref = ref;
+	}
+
+	public String getTxt() {
+		return txt;
+	}
+
+	public void setTxt(String txt) {
+		this.txt = txt;
 	}
 
 	public static class Ref {

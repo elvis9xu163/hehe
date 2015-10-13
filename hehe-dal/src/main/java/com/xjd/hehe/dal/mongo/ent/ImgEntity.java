@@ -2,7 +2,7 @@ package com.xjd.hehe.dal.mongo.ent;
 
 import org.mongodb.morphia.annotations.Entity;
 
-@Entity(value = "img", noClassnameStored = true)
+@Entity(value = "Img", noClassnameStored = true)
 public class ImgEntity extends BaseEntity {
 	/** 本系统中的URI */
 	private String uri;

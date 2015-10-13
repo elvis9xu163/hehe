@@ -3,7 +3,7 @@ package com.xjd.hehe.spider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.xjd.hehe.spider.haha.SpiderJokeGood;
+import com.xjd.hehe.spider.haha.spider.SpiderJokeGood;
 
 public class Launcher {
 

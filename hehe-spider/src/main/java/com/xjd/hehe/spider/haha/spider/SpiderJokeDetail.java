@@ -1,4 +1,4 @@
-package com.xjd.hehe.spider.haha;
+package com.xjd.hehe.spider.haha.spider;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.xjd.hehe.spider.haha.bean.Joke;
+import com.xjd.hehe.spider.haha.saver.SaverJoke;
 import com.xjd.hehe.utl.AppContext;
 import com.xjd.hehe.utl.JsonUtil;
 
@@ -45,12 +48,14 @@ public class SpiderJokeDetail {
 				jokeSaver.auditFail(id);
 
 			} else {
-				List list = JsonUtil.parse(content, List.class);
-				jokeSaver.save(list);
+				List<Joke> list = JsonUtil.getObjectMapper().readValue(content, new TypeReference<List<Joke>>() {
+				});
+				jokeSaver.save(list, false);
 			}
 
 		} catch (IOException e) {
-			log.error("", e);
+			log.error("抓取joke详情异常.", e);
+		} finally {
 			if (res != null) {
 				res.discardContent();
 			}

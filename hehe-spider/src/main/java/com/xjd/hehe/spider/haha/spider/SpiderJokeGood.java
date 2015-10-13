@@ -1,10 +1,9 @@
-package com.xjd.hehe.spider.haha;
+package com.xjd.hehe.spider.haha.spider;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
@@ -14,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.xjd.hehe.spider.haha.bean.JokeWithPage;
+import com.xjd.hehe.spider.haha.saver.SaverJoke;
 import com.xjd.hehe.utl.AppContext;
 import com.xjd.hehe.utl.JsonUtil;
 
@@ -49,16 +50,17 @@ public class SpiderJokeGood {
 					break;
 				}
 
-				Map map = JsonUtil.parse(content, Map.class);
+				JokeWithPage jokeWithPage = JsonUtil.parse(content, JokeWithPage.class);
 
-				Object page = map.get("page");
-				readPages.add(page + "");
+				readPages.add(jokeWithPage.getPage() + "");
 
-				jokeSaver.save((List) map.get("joke"));
+				jokeSaver.save(jokeWithPage.getJoke(), true);
 			}
 
 		} catch (IOException e) {
-			log.error("", e);
+			log.error("抓取热门joke异常.", e);
+
+		} finally {
 			if (res != null) {
 				res.discardContent();
 			}

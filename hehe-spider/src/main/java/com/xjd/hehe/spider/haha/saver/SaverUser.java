@@ -1,4 +1,4 @@
-package com.xjd.hehe.spider.haha;
+package com.xjd.hehe.spider.haha.saver;
 
 import java.util.Arrays;
 
@@ -18,7 +18,7 @@ public class SaverUser {
 	@Autowired
 	UserDao userDao;
 
-	public UserEntity saveUser(String hid, String hname, String havatar) {
+	public UserEntity save(String hid, String hname, String havatar) {
 		UserEntity entity = userDao.getByRefIdAndRefFrom(hid, (byte) 10);
 		if (entity != null) { // 找到, 则返回
 			return entity;
@@ -28,19 +28,15 @@ public class SaverUser {
 			entity.setName(hname);
 			entity.setAvatar(havatar);
 			entity.setFake((byte) 1);
-
 			UserEntity.Ref ref = new UserEntity.Ref();
 			ref.setId(hid);
 			ref.setName(hname);
 			ref.setAvatar(havatar);
 			ref.setFrom((byte) 10);
 			ref.setCtime(DateUtil.now());
-
 			entity.setRefs(Arrays.asList(ref));
 			userDao.save(entity);
-
-			log.info("new user: {}, {}", entity.getId(), hname);
-
+			log.info("增加虚拟用户: {}, {}, {}", entity.getId(), hid, hname);
 			return entity;
 		}
 	}

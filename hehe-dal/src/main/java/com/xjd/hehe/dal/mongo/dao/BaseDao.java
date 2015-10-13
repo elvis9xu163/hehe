@@ -2,6 +2,7 @@ package com.xjd.hehe.dal.mongo.dao;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 
 public abstract class BaseDao<T> {
 	protected Class<T> entityClass;
@@ -26,6 +27,10 @@ public abstract class BaseDao<T> {
 	
 	public Query<T> createQuery() {
 		return getDatastore().createQuery(getEntityClass());
+	}
+
+	public UpdateOperations<T> createUpdateOperations() {
+		return getDatastore().createUpdateOperations(getEntityClass());
 	}
 
 	public void save(T entity) {

@@ -34,6 +34,10 @@ public abstract class JsonUtil {
 		objectMapperIncludeIgnoredPropertiesWithDateFormat.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	}
 
+	public static ObjectMapper getObjectMapper() {
+		return objectMapper;
+	}
+
 	public static <T> T parse(String content, Class<T> type) {
 		try {
 			return objectMapper.readValue(content, type);
