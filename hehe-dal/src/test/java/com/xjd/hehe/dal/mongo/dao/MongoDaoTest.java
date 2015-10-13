@@ -1,0 +1,30 @@
+package com.xjd.hehe.dal.mongo.dao;
+
+import org.fest.assertions.api.Assertions;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.xjd.hehe.dal.mongo.MongoBaseTest;
+import com.xjd.hehe.dal.mongo.ent.TestEntity;
+
+public class MongoDaoTest extends MongoBaseTest {
+	private static Logger log = LoggerFactory.getLogger(MongoDaoTest.class);
+
+	@Autowired
+	MongoDao mongoDao;
+
+	@Test
+	public void test() {
+		TestEntity testEntity = new TestEntity();
+		mongoDao.save(testEntity);
+		Assertions.assertThat(testEntity.getId()).isNotNull();
+		log.debug("save entity success: {}, {}", TestEntity.class.getSimpleName(), testEntity.getId());
+		
+		testEntity = mongoDao.get(TestEntity.class, testEntity.getId());
+		Assertions.assertThat(testEntity).isNotNull();
+		log.debug("get entity success: {}, {}", TestEntity.class.getSimpleName(), testEntity.getId());
+		
+	}
+}

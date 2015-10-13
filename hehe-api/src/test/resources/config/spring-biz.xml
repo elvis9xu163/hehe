@@ -87,7 +87,7 @@
 				<bean class="org.springframework.cache.guava.GuavaCacheManager">
 					<property name="cacheNames">
 						<set>
-							<value>entity</value>
+							<value>com.xjd.hehe.dal.mongo.ent</value>
 						</set>
 					</property>
 					<property name="cacheBuilder">

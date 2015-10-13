@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.jkys.social.util.AppContext;
+import com.xjd.hehe.utl.AppContext;
 
 public class Luncher {
 	private static Logger log = LoggerFactory.getLogger(Luncher.class);

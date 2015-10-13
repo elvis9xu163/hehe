@@ -36,5 +36,6 @@
 		</root>
 		<Logger name="org.mongodb.morphia" level="trace" />
 		<Logger name="com.mongodb" level="trace" />
+		<Logger name="com.xjd" level="trace" />
 	</loggers>
 </configuration>

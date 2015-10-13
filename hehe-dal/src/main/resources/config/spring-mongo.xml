@@ -15,26 +15,26 @@
                        http://www.springframework.org/schema/jee
                        http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
 
-	<context:property-placeholder file-encoding="UTF-8" location="file:/data/data/conf/mongodb.properties" />
+	<context:property-placeholder file-encoding="UTF-8" location="file:/data/data/conf/mongo.properties" />
 
 	<bean id="mongoClient" class="com.mongodb.MongoClient" destroy-method="close">
-		<constructor-arg type="java.lang.String" value="${mongodb.host}"/>
-		<constructor-arg type="int" value="${mongodb.port}"/>
+		<constructor-arg type="java.lang.String" value="${mongo.host}"/>
+		<constructor-arg type="int" value="${mongo.port}"/>
 	</bean>
 
 	<bean id="morphia" class="org.mongodb.morphia.Morphia"/>
 
 	<bean id="datastore" factory-bean="morphia" factory-method="createDatastore">
 		<constructor-arg ref="mongoClient"/>
-		<constructor-arg value="${mongodb.db}"/>
+		<constructor-arg value="${mongo.db}"/>
 	</bean>
 
-	<bean class="com.xjd.hehe.dal.mongodb.MorphiaIniter">
+	<bean class="com.xjd.hehe.dal.mongo.MorphiaIniter">
 		<constructor-arg ref="morphia"/>
 		<constructor-arg ref="datastore"/>
-		<constructor-arg value="com.xjd.hehe.dal.mongodb.model"/>
+		<constructor-arg value="com.xjd.hehe.dal.mongo.ent"/>
 	</bean>
 
-	<context:component-scan base-package="com.xjd.hehe.dal.mongodb.dao" />
+	<context:component-scan base-package="com.xjd.hehe.dal.mongo.dao" />
 
 </beans>

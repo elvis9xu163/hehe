@@ -1,4 +1,4 @@
-package com.xjd.hehe.dal.mongodb;
+package com.xjd.hehe.dal.mongo;
 
 import java.util.List;
 
