@@ -38,7 +38,7 @@ public class JokeEntity extends BaseEntity {
 	/** 来源平台：0-自身, 10-哈哈 */
 	private Byte from = 0;
 
-	/** 状态: 0-待审核, 1-审核通过, 2-审核拒绝 */
+	/** 状态: 0-待审核, 1-审核通过, 2-审核拒绝, 3-待发布 */
 	private Byte status = 0;
 
 	/** 来源平台的关联属性 */

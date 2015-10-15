@@ -38,4 +38,10 @@ public class JokeDao extends BaseDao<JokeEntity> {
 		UpdateOperations<JokeEntity> update = createUpdateOperations().inc("ncmt", cmt).inc("ref.cmt", cmt);
 		return getDatastore().update(query, update).getUpdatedCount();
 	}
+
+	public int auditFail(String id) {
+		Query<JokeEntity> query = createQuery().filter("_id =", new ObjectId(id));
+		UpdateOperations<JokeEntity> update = createUpdateOperations().set("status", 2);
+		return getDatastore().update(query, update).getUpdatedCount();
+	}
 }

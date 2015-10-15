@@ -153,7 +153,8 @@ public class SaverJoke {
 	}
 
 	public void auditFail(Long jokeId) {
-
+		jokeDao.auditFail(jokeId.toString());
+		log.info("joke审核拒绝: {}", jokeId);
 	}
 
 	public void incRefCmt(String id) {
