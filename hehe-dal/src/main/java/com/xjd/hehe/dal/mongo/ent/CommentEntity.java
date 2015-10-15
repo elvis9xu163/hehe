@@ -22,9 +22,6 @@ public class CommentEntity extends BaseEntity {
 	/** 鄙视数 */
 	private Integer nbad = 0;
 
-	/** 回复数 */
-	private Integer ncmt = 0;
-
 	/** 来源平台：0-自身, 10-哈哈 */
 	private Byte from = 0;
 
@@ -74,14 +71,6 @@ public class CommentEntity extends BaseEntity {
 		this.nbad = nbad;
 	}
 
-	public Integer getNcmt() {
-		return ncmt;
-	}
-
-	public void setNcmt(Integer ncmt) {
-		this.ncmt = ncmt;
-	}
-
 	public Byte getFrom() {
 		return from;
 	}
@@ -123,8 +112,8 @@ public class CommentEntity extends BaseEntity {
 		private Integer good = 0;
 		/** 鄙视数 */
 		private Integer bad = 0;
-		/** 评论数 */
-		private Integer cmt = 0;
+		/** 时间 */
+		private String time;
 
 		public String getId() {
 			return id;
@@ -158,12 +147,12 @@ public class CommentEntity extends BaseEntity {
 			this.bad = bad;
 		}
 
-		public Integer getCmt() {
-			return cmt;
+		public String getTime() {
+			return time;
 		}
 
-		public void setCmt(Integer cmt) {
-			this.cmt = cmt;
+		public void setTime(String time) {
+			this.time = time;
 		}
 
 	}

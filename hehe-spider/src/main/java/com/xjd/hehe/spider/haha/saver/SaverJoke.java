@@ -15,6 +15,7 @@ import com.xjd.hehe.dal.mongo.ent.JokeEntity;
 import com.xjd.hehe.dal.mongo.ent.TopicEntity;
 import com.xjd.hehe.dal.mongo.ent.UserEntity;
 import com.xjd.hehe.spider.haha.bean.Joke;
+import com.xjd.hehe.spider.haha.spider.SpiderJokeComment;
 import com.xjd.hehe.spider.haha.spider.SpiderJokeDetail;
 
 @Service
@@ -35,6 +36,8 @@ public class SaverJoke {
 
 	@Autowired
 	SpiderJokeDetail spiderJokeDetail;
+	@Autowired
+	SpiderJokeComment spiderJokeComment;
 
 	public void save(List<Joke> jokes, boolean needDetail) {
 		for (Joke joke : jokes) {
@@ -65,7 +68,7 @@ public class SaverJoke {
 	public void update(Joke joke, JokeEntity entity) {
 		int incGood = joke.getGood() - entity.getRef().getGood();
 		int incBad = joke.getBad() - entity.getRef().getBad();
-		int incCmt = joke.getComment_num() - entity.getRef().getCmt();
+		// int incCmt = joke.getComment_num() - entity.getRef().getCmt();
 		if (incGood > 0) {
 			jokeDao.incRefGood(entity.getId(), incGood);
 			log.info("增长哈哈点赞数: {}, {}", entity.getId(), incGood);
@@ -74,11 +77,11 @@ public class SaverJoke {
 			jokeDao.incRefBad(entity.getId(), incBad);
 			log.info("增长哈哈鄙视数: {}, {}", entity.getId(), incBad);
 		}
-		if (incCmt > 0) {
-			jokeDao.incRefCmt(entity.getId(), incCmt);
-			log.info("增长哈哈评论数: {}, {}", entity.getId(), incCmt);
-			getComments(entity);
-		}
+		// if (incCmt > 0) {
+		// jokeDao.incRefCmt(entity.getId(), incCmt);
+		// log.info("增长哈哈评论数: {}, {}", entity.getId(), incCmt);
+		getComments(entity);
+		// }
 	}
 
 	public void create(Joke joke, boolean needDetail) {
@@ -118,7 +121,7 @@ public class SaverJoke {
 		entity.setTopics(topicEntity == null ? null : Arrays.asList(topicEntity.getId()));
 		entity.setNgood(joke.getGood());
 		entity.setNbad(joke.getBad());
-		entity.setNcmt(joke.getComment_num());
+		// entity.setNcmt(joke.getComment_num());
 		entity.setPjid(rootEntity == null ? null : rootEntity.getPjid());
 		entity.setFrom((byte) 10);
 
@@ -127,7 +130,7 @@ public class SaverJoke {
 		ref.setUid(joke.getUid().toString());
 		ref.setGood(joke.getGood());
 		ref.setBad(joke.getBad());
-		ref.setCmt(joke.getComment_num());
+		// ref.setCmt(joke.getComment_num());
 		ref.setPtime(joke.getTime());
 		entity.setRef(ref);
 		jokeDao.save(entity);
@@ -146,10 +149,15 @@ public class SaverJoke {
 
 	public void getComments(JokeEntity jokeEntity) {
 		log.info("准备获取Joke的评论列表: {}", jokeEntity.getId());
-
+		spiderJokeComment.grap(jokeEntity);
 	}
 
 	public void auditFail(Long jokeId) {
 
+	}
+
+	public void incRefCmt(String id) {
+		jokeDao.incRefCmt(id, 1);
+		log.info("增长哈哈评论数: {}, {}", id, 1);
 	}
 }
