@@ -54,6 +54,8 @@ public class SpiderJokeTopicBeauty {
 				JokeWithPage jokeWithPage = JsonUtil.parse(content, JokeWithPage.class);
 
 				jokeSaver.save(jokeWithPage.getJoke(), true);
+				
+				page ++;
 			}
 
 		} catch (IOException e) {
