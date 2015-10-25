@@ -27,7 +27,8 @@ public class SaverUser {
 			entity = new UserEntity();
 			entity.setName(hname);
 			entity.setAvatar(havatar);
-			entity.setFake((byte) 1);
+			entity.setType((byte) 2);
+			entity.setPwd("29522c68ffbd2f2e62b0a8a0da56f1d287210cf6");
 			UserEntity.Ref ref = new UserEntity.Ref();
 			ref.setId(hid);
 			ref.setName(hname);

@@ -10,6 +10,9 @@ public class UserEntity extends BaseEntity {
 	/** 名称 */
 	private String name;
 
+	/** 密码 */
+	private String pwd;
+
 	/** 等级 */
 	private Integer level = 0;
 
@@ -37,8 +40,11 @@ public class UserEntity extends BaseEntity {
 	/** 关注的topic列表 */
 	private List<String> topics;
 
-	/** 是否是虚假用户: 0-否, 1-是 */
-	private Byte fake = 0;
+	/** 用户类型: 0-正常, 1-游客, 2-虚假 */
+	private Byte type = 0;
+
+	/** 用户状态: 0-正常, 1-无效 */
+	private Byte status = 0;
 
 	/** 关联的系统外用户 */
 	private List<Ref> refs;
@@ -123,12 +129,12 @@ public class UserEntity extends BaseEntity {
 		this.topics = topics;
 	}
 
-	public Byte getFake() {
-		return fake;
+	public Byte getType() {
+		return type;
 	}
 
-	public void setFake(Byte fake) {
-		this.fake = fake;
+	public void setType(Byte type) {
+		this.type = type;
 	}
 
 	public List<Ref> getRefs() {
@@ -137,6 +143,22 @@ public class UserEntity extends BaseEntity {
 
 	public void setRefs(List<Ref> refs) {
 		this.refs = refs;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+	public Byte getStatus() {
+		return status;
+	}
+
+	public void setStatus(Byte status) {
+		this.status = status;
 	}
 
 	public static class Ref {

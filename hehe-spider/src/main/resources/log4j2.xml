@@ -8,15 +8,15 @@
 				<Pattern>%d{HH:mm:ss.SSS} [%t] %5level %logger{36}(%L) - %msg%n</Pattern>
 			</PatternLayout>
 		</Console>
-		<!--<RollingFile name="File" fileName="logs/hehe-all.log" bufferSize="1024" filePattern="logs/$${date:yyyy-MM}/jkys-social-all-%d{yyyy-MM-dd}-%i.log.gz">-->
-			<!--<PatternLayout>-->
-				<!--<Pattern>%d{HH:mm:ss.SSS} [%t] %5level %logger{36}(%L) - %msg%n</Pattern>-->
-			<!--</PatternLayout>-->
-			<!--<Policies>-->
-				<!--<TimeBasedTriggeringPolicy />-->
-				<!--<SizeBasedTriggeringPolicy size="100 MB" />-->
-			<!--</Policies>-->
-		<!--</RollingFile>-->
+		<RollingFile name="File" fileName="/data/data/log/hehe-spider.log" bufferSize="1024" filePattern="/data/data/log/$${date:yyyy-MM}/hehe-spider-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d{HH:mm:ss.SSS} [%t] %5level %logger{36}(%L) - %msg%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+			</Policies>
+		</RollingFile>
 		<!--<RollingFile name="FileWatch" fileName="logs/jkys-social-watch.log" bufferSize="1024" filePattern="logs/$${date:yyyy-MM}/jkys-social-watch-%d{yyyy-MM-dd}-%i.log.gz">-->
 			<!--<PatternLayout>-->
 				<!--<Pattern>%d{HH:mm:ss.SSS} [%t] %5level %logger{36}(%L) - %msg%n</Pattern>-->
@@ -27,7 +27,8 @@
 			<!--</Policies>-->
 		<!--</RollingFile>-->
 		<Async name="Async">
-			<AppenderRef ref="Console"/>
+			<!--<AppenderRef ref="Console"/>-->
+			<AppenderRef ref="File"/>
 		</Async>
 	</Appenders>
 	<loggers>

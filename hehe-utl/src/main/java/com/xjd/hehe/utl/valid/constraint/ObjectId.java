@@ -1,4 +1,4 @@
-package com.xjd.hehe.utl.constraint;
+package com.xjd.hehe.utl.valid.constraint;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

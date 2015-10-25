@@ -48,4 +48,8 @@ public class AppContext {
 	public static String getPwdMask() {
 		return "[******]";
 	}
+
+	public static String getDefaultPort() {
+		return getProperty("api.port");
+	}
 }

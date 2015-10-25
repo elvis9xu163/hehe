@@ -13,9 +13,9 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="conversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %m%n" />
 		</layout>
-		<param name="file" value="logs/jkys-social-perf.log" />
+		<param name="file" value="/data/data/log/hehe-api-perf.log" />
 		<param name="append" value="true" />
-		<param name="maxFileSize" value="200MB" />
+		<param name="maxFileSize" value="100MB" />
 		<param name="maxBackupIndex" value="10" />
 	</appender>
 

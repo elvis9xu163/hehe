@@ -30,21 +30,20 @@
 		<property name="locations">
 			<array>
 				<value>classpath:props/app.properties</value>
-				<value>file:/data/www/91jkys/config/social-app.properties</value>
-				<value>file:/data/www/91jkys/config/social-data.properties</value>
-				<value>file:/data/www/91jkys/config/social-limit.properties</value>
+				<value>file:/data/data/conf/hehe-api.properties</value>
+				<value>file:/data/data/conf/mongo.properties</value>
 			</array>
 		</property>
 	</bean>
 
 	<context:property-placeholder file-encoding="UTF-8" properties-ref="properties" />
 	
-	<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-		<property name="corePoolSize" value="2" />
-		<property name="maxPoolSize" value="200" />
-	</bean>
+	<!--<bean id="executor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+		<!--<property name="corePoolSize" value="2" />-->
+		<!--<property name="maxPoolSize" value="200" />-->
+	<!--</bean>-->
 
-	<bean class="com.jkys.social.util.AppContext">
+	<bean class="com.xjd.hehe.utl.AppContext">
 		<constructor-arg ref="properties" />
 	</bean>
 
@@ -52,55 +51,55 @@
 	
 	<bean class="org.perf4j.log4j.aop.TimingAspect" />
 
-	<context:component-scan base-package="com.jkys.social.api, com.jkys.social.biz.service, com.jkys.social.itg" />
+	<context:component-scan base-package="com.xjd.hehe.api.cmpt, com.xjd.hehe.api.ctrl, com.xjd.hehe.biz.service" />
 
 	<context:annotation-config />
 
 	<aop:aspectj-autoproxy />
 
-	<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
-		<property name="cacheManagers">
-			<list>
-				<bean class="org.springframework.cache.guava.GuavaCacheManager">
-					<property name="cacheNames">
-						<set>
-							<value>static</value>
-						</set>
-					</property>
-					<property name="cacheBuilder">
-						<bean class="com.google.common.cache.CacheBuilder" factory-method="from">
-							<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterAccess=6h,softValues" /><!-- 6h -->
-						</bean>
-					</property>
-				</bean>
-				<bean class="org.springframework.cache.guava.GuavaCacheManager">
-					<property name="cacheNames">
-						<set>
-							<value>temp</value>
-						</set>
-					</property>
-					<property name="cacheBuilder">
-						<bean class="com.google.common.cache.CacheBuilder" factory-method="from">
-							<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterWrite=10s,softValues" /><!-- 10s -->
-						</bean>
-					</property>
-				</bean>
-				<bean class="org.springframework.cache.guava.GuavaCacheManager">
-					<property name="cacheNames">
-						<set>
-							<value>com.xjd.hehe.dal.mongo.ent</value>
-						</set>
-					</property>
-					<property name="cacheBuilder">
-						<bean class="com.google.common.cache.CacheBuilder" factory-method="from">
-							<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterWrite=2m,softValues" /><!-- 2m -->
-						</bean>
-					</property>
-				</bean>
-			</list>
-		</property>
-	</bean>
+	<!--<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">-->
+		<!--<property name="cacheManagers">-->
+			<!--<list>-->
+				<!--<bean class="org.springframework.cache.guava.GuavaCacheManager">-->
+					<!--<property name="cacheNames">-->
+						<!--<set>-->
+							<!--<value>static</value>-->
+						<!--</set>-->
+					<!--</property>-->
+					<!--<property name="cacheBuilder">-->
+						<!--<bean class="com.google.common.cache.CacheBuilder" factory-method="from">-->
+							<!--<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterAccess=6h,softValues" />&lt;!&ndash; 6h &ndash;&gt;-->
+						<!--</bean>-->
+					<!--</property>-->
+				<!--</bean>-->
+				<!--<bean class="org.springframework.cache.guava.GuavaCacheManager">-->
+					<!--<property name="cacheNames">-->
+						<!--<set>-->
+							<!--<value>temp</value>-->
+						<!--</set>-->
+					<!--</property>-->
+					<!--<property name="cacheBuilder">-->
+						<!--<bean class="com.google.common.cache.CacheBuilder" factory-method="from">-->
+							<!--<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterWrite=10s,softValues" />&lt;!&ndash; 10s &ndash;&gt;-->
+						<!--</bean>-->
+					<!--</property>-->
+				<!--</bean>-->
+				<!--<bean class="org.springframework.cache.guava.GuavaCacheManager">-->
+					<!--<property name="cacheNames">-->
+						<!--<set>-->
+							<!--<value>com.xjd.hehe.dal.mongo.ent</value>-->
+						<!--</set>-->
+					<!--</property>-->
+					<!--<property name="cacheBuilder">-->
+						<!--<bean class="com.google.common.cache.CacheBuilder" factory-method="from">-->
+							<!--<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterWrite=2m,softValues" />&lt;!&ndash; 2m &ndash;&gt;-->
+						<!--</bean>-->
+					<!--</property>-->
+				<!--</bean>-->
+			<!--</list>-->
+		<!--</property>-->
+	<!--</bean>-->
 
-	<cache:annotation-driven proxy-target-class="true" />
+	<!--<cache:annotation-driven proxy-target-class="true" />-->
 
 </beans>

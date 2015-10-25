@@ -13,6 +13,9 @@ public class ImgEntity extends BaseEntity {
 	/** 原图宽 */
 	private Integer w;
 
+	/** 来源平台：0-自身, 10-哈哈 */
+	private Byte from = 0;
+
 	/** 对应其它网站的url */
 	private String refUrl;
 
@@ -48,4 +51,11 @@ public class ImgEntity extends BaseEntity {
 		this.refUrl = refUrl;
 	}
 
+	public Byte getFrom() {
+		return from;
+	}
+
+	public void setFrom(Byte from) {
+		this.from = from;
+	}
 }

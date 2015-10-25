@@ -1,10 +1,7 @@
 package com.xjd.hehe.spider.haha.saver;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 import javax.imageio.ImageIO;
 
@@ -67,9 +64,12 @@ public class SaverImg {
 		if (!file.exists()) {
 			if (tmpFile.renameTo(file)) {
 				log.info("保存图片到文件: {} -- {}", file.getAbsolutePath(), refUrlBig);
-			} else {
-				throw new RuntimeException("保存图片到文件失败: " + file.getAbsolutePath() + "--" + refUrlBig);
+			} else { // 正常情况应该没有问题, 否则是权限或者跨盘了, 改用复制方式
+				copyAsRenameTo(tmpFile, file);
+				log.info("保存图片到文件: {} -- {}", file.getAbsolutePath(), refUrlBig);
 			}
+		} else { // 存在则删除原文件
+			tmpFile.delete();
 		}
 
 		//保存数据
@@ -81,6 +81,7 @@ public class SaverImg {
 		entity.setUri(path);
 		entity.setH(h);
 		entity.setW(w);
+		entity.setFrom((byte) 10);
 		entity.setRefUrl(refUrlBig);
 		imgDao.save(entity);
 		log.info("新增IMG: {}, {}", entity.getId(), entity.getUri());
@@ -118,6 +119,25 @@ public class SaverImg {
 			return "jpg";
 		}
 		return name.substring(name.lastIndexOf('.') + 1);
+	}
+
+	public void copyAsRenameTo(File source, File target) {
+		try {
+			FileInputStream in = new FileInputStream(source);
+			FileOutputStream out = new FileOutputStream(target);
+			byte[] buf = new byte[1024 * 2];
+			int c = -1;
+			while ((c = in.read(buf)) != -1) {
+				if (c > 0) {
+					out.write(buf, 0, c);
+				}
+			}
+			in.close();
+			out.close();
+			source.delete();
+		} catch (IOException e) {
+			throw new RuntimeException("复制文件失败: '" + source.getAbsolutePath() + "' --> '" + target.getAbsolutePath() + "'", e);
+		}
 	}
 
 }
