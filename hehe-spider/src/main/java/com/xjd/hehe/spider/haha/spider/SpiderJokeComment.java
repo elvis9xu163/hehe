@@ -45,7 +45,7 @@ public class SpiderJokeComment {
 				res = request.execute();
 
 				String content = res.returnContent().asString(Charset.forName("utf8"));
-				log.info("grab: {}-{}", entity.getId(), content);
+				log.info("comment grab: {}-{}", entity.getId(), content);
 
 				CommentWithPage commentWithPage = JsonUtil.parse(content, CommentWithPage.class);
 				
@@ -55,7 +55,7 @@ public class SpiderJokeComment {
 				page ++;
 
 			} catch (IOException e) {
-				log.error("抓取joke详情异常.", e);
+				log.error("抓取joke评论异常.", e);
 			} finally {
 				if (res != null) {
 					res.discardContent();

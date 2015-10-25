@@ -41,7 +41,7 @@ public class SpiderJokeDetail {
 			res = request.execute();
 
 			String content = res.returnContent().asString(Charset.forName("utf8"));
-			log.info("grab: {}-{}", id, content);
+			log.info("detail grab: {}-{}", id, content);
 
 			if ("0".equals(content)) {
 				log.info("audit fail: {}", id);
