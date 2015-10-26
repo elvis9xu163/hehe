@@ -1,6 +1,7 @@
 package com.xjd.hehe.dal.mongo.ent;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
 
 @Entity(value = "Topic", noClassnameStored = true)
 public class TopicEntity extends BaseEntity {
@@ -8,6 +9,7 @@ public class TopicEntity extends BaseEntity {
 	private String uid;
 
 	/** 名 */
+	@Indexed
 	private String name;
 
 	/** 关联的joke数 */

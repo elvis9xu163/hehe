@@ -10,6 +10,12 @@ public class UserEntity extends BaseEntity {
 	/** 名称 */
 	private String name;
 
+	/** 手机号 */
+	private String mobile;
+
+	/** 邮箱 */
+	private String mail;
+
 	/** 密码 */
 	private String pwd;
 
@@ -34,6 +40,9 @@ public class UserEntity extends BaseEntity {
 	/** 收藏数 */
 	private Integer nfavor = 0;
 
+	/** 关注话题数 */
+	private Integer ntopic = 0;
+
 	/** 收藏的joke列表 */
 	private List<String> favors;
 
@@ -42,6 +51,9 @@ public class UserEntity extends BaseEntity {
 
 	/** 用户类型: 0-正常, 1-游客, 2-虚假 */
 	private Byte type = 0;
+
+	/** 用户类型修改时间 */
+	private Date typeTime;
 
 	/** 用户状态: 0-正常, 1-无效 */
 	private Byte status = 0;
@@ -159,6 +171,38 @@ public class UserEntity extends BaseEntity {
 
 	public void setStatus(Byte status) {
 		this.status = status;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public Date getTypeTime() {
+		return typeTime;
+	}
+
+	public void setTypeTime(Date typeTime) {
+		this.typeTime = typeTime;
+	}
+
+	public Integer getNtopic() {
+		return ntopic;
+	}
+
+	public void setNtopic(Integer ntopic) {
+		this.ntopic = ntopic;
 	}
 
 	public static class Ref {

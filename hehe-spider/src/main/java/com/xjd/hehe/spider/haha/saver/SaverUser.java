@@ -1,6 +1,7 @@
 package com.xjd.hehe.spider.haha.saver;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +29,7 @@ public class SaverUser {
 			entity.setName(hname);
 			entity.setAvatar(havatar);
 			entity.setType((byte) 2);
+			entity.setTypeTime(new Date());
 			entity.setPwd("29522c68ffbd2f2e62b0a8a0da56f1d287210cf6");
 			UserEntity.Ref ref = new UserEntity.Ref();
 			ref.setId(hid);
