@@ -26,12 +26,12 @@ public class ValidBean {
 	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", message = RespCode.RES_0010)
 	private String mail;
 
-//	@NotBlank(message = RespCode.RES_0012)
-//	@Pattern(regexp = "(^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$)|(^((13[0-9])|(14[5,7])|(15[^4,\\D])|(170)|(18[^4,\\D]))\\d{8}$)", message = RespCode.RES_0120)
-//	private String username;
-//
-//	@NotBlank(message = RespCode.RES_0012)
-//	private String password;
+	@NotBlank(message = RespCode.RES_0012)
+	@Pattern(regexp = "(^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$)|(^((13[0-9])|(14[5,7])|(15[^4,\\D])|(170)|(18[^4,\\D]))\\d{8}$)", message = RespCode.RES_0102)
+	private String uname;
+
+	@NotBlank(message = RespCode.RES_0012)
+	private String pwd;
 //
 //	@NotBlank(message = RespCode.RES_0012)
 //	@Digits(integer = 18, fraction = 0, message = RespCode.RES_0002)
@@ -157,5 +157,21 @@ public class ValidBean {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 }

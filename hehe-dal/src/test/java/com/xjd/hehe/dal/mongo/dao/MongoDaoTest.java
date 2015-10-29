@@ -22,7 +22,8 @@ public class MongoDaoTest extends MongoBaseTest {
 		{
 			TestEntity testEntity = new TestEntity();
 			mongoDao.save(testEntity);
-			Assertions.assertThat(testEntity.getId()).isNotNull();
+			String id = testEntity.getId();
+			Assertions.assertThat(id).isNotNull();
 			log.debug("save entity success: {}, {}", TestEntity.class.getSimpleName(), testEntity.getId());
 
 			testEntity = mongoDao.get(TestEntity.class, testEntity.getId());

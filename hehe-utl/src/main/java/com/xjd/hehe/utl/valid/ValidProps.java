@@ -4,4 +4,6 @@ public interface ValidProps {
 	String TIME = "time";
 	String MOBILE = "mobile";
 	String MAIL = "mail";
+	String UNAME = "uname";
+	String PWD = "pwd";
 }

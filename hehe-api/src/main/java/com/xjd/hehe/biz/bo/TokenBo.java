@@ -5,12 +5,22 @@ package com.xjd.hehe.biz.bo;
  * @since 2015-10-26 00:08
  */
 public class TokenBo extends BaseBo {
+	/** 用于签名 */
+	private String salt;
 	/** 用户ID */
 	private String uid;
 	/** 终端标识 */
 	private String endId;
 	/** 状态 */
 	private Byte status;
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
 	public String getUid() {
 		return uid;

@@ -107,6 +107,7 @@ public class CtrlAspect {
 				// == 其它公共参数校验 == //
 				String time = getParameter(request, "time");
 				ValidUtil.check(ValidUtil.TIME, time);
+				// FIXME sign校验
 
 				// == FIXME 版本升级控制 == //
 

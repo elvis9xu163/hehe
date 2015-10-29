@@ -9,6 +9,8 @@ import org.mongodb.morphia.annotations.Indexed;
  */
 @Entity(value = "Token", noClassnameStored = true)
 public class TokenEntity extends BaseEntity {
+	/** 用于签名 */
+	private String salt;
 	/** 用户ID */
 	@Indexed
 	private String uid;
@@ -17,6 +19,14 @@ public class TokenEntity extends BaseEntity {
 	private String endId;
 	/** 状态: 0-正常, 1-无效 */
 	private Byte status = 0;
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
 	public String getUid() {
 		return uid;
