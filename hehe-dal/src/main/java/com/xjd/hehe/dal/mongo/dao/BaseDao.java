@@ -40,4 +40,5 @@ public abstract class BaseDao<T> {
 	public T get(String id) {
 		return getMongoDao().get(entityClass, id);
 	}
+
 }

@@ -5,5 +5,6 @@ public interface ValidProps {
 	String MOBILE = "mobile";
 	String MAIL = "mail";
 	String UNAME = "uname";
+	String NICK = "nick";
 	String PWD = "pwd";
 }

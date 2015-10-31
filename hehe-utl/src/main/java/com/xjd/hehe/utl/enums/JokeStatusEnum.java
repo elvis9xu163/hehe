@@ -3,14 +3,14 @@ package com.xjd.hehe.utl.enums;
 /**
  *
  */
-public enum UserTypeEnum {
+public enum JokeStatusEnum {
 
-	NORMAL((byte) 0, "正常"), VISITOR((byte) 1, "游客"), FAKE((byte) 1, "虚拟");
+	NOT_AUDIT((byte) 0, "待审核"), AUDIT_SUCCESS((byte) 1, "审核通过"), AUDIT_FAIL((byte) 2, "审核拒绝"), NOT_PUBLISH((byte) 3, "待发布");
 
 	byte code;
 	String desc;
 
-	UserTypeEnum(byte code, String desc) {
+	JokeStatusEnum(byte code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}
@@ -24,14 +24,14 @@ public enum UserTypeEnum {
 	}
 
 	public String toString() {
-		return UserTypeEnum.class.getSimpleName() + "[code=" + code + ", desc=" + desc + "]";
+		return JokeStatusEnum.class.getSimpleName() + "[code=" + code + ", desc=" + desc + "]";
 	}
 
-	public static UserTypeEnum valueOfCode(Byte code) {
+	public static JokeStatusEnum valueOfCode(Byte code) {
 		if (code == null) {
 			return null;
 		}
-		for (UserTypeEnum e : UserTypeEnum.values()) {
+		for (JokeStatusEnum e : JokeStatusEnum.values()) {
 			if (e.getCode() == code) {
 				return e;
 			}

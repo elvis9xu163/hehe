@@ -30,6 +30,8 @@ public interface RespCode {
 	String RES_0101 = "0101";
 	/** 亲，用户名只能是手机号或邮箱(推荐)哦！ */
 	String RES_0102 = "0102";
+	/** 账号信息填错了啦！*/
+	String RES_0103 = "0103";
 
 	/** 非法客户端 */
 	String RES_9970 = "9970";

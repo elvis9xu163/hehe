@@ -1,9 +1,13 @@
 package com.xjd.hehe.dal.mongo.dao;
 
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xjd.hehe.dal.mongo.ent.TokenEntity;
+import com.xjd.hehe.utl.enums.TokenStatusEnum;
 
 /**
  * @author elvis.xu
@@ -17,4 +21,11 @@ public class TokenDao extends BaseDao<TokenEntity> {
 	}
 
 
+	public int invalidToken(String uid, String endId) {
+		Query<TokenEntity> query = createQuery();
+		query.field("status").equal(TokenStatusEnum.NORMAL.getCode()).or(query.criteria("uid").equal(uid), query.criteria("endId").equal(endId));
+		UpdateOperations<TokenEntity> update = createUpdateOperations().set("status", TokenStatusEnum.INVALID.getCode());
+		UpdateResults updateResults = getDatastore().update(query, update);
+		return updateResults.getUpdatedCount();
+	}
 }

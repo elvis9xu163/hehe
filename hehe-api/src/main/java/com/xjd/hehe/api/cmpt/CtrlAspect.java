@@ -209,7 +209,11 @@ public class CtrlAspect {
 		RequestContext.putEndModel(endParts[0]);
 		RequestContext.putEndSys(endParts[1]);
 		RequestContext.putEndId(endParts[2]);
-		RequestContext.putAppVer(Integer.valueOf(appParts[1]));
+		try {
+			RequestContext.putAppVer(Integer.valueOf(appParts[1]));
+		} catch (NumberFormatException e) {
+			throw new BizException(RespCode.RES_9970, e);
+		}
 	}
 
 	protected String getParameter(HttpRequest request, String key) {

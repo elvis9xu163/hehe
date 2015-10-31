@@ -32,6 +32,9 @@ public class ValidBean {
 
 	@NotBlank(message = RespCode.RES_0012)
 	private String pwd;
+
+	@NotBlank(message = RespCode.RES_0012)
+	private String nick;
 //
 //	@NotBlank(message = RespCode.RES_0012)
 //	@Digits(integer = 18, fraction = 0, message = RespCode.RES_0002)
@@ -173,5 +176,13 @@ public class ValidBean {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
+	}
+
+	public String getNick() {
+		return nick;
+	}
+
+	public void setNick(String nick) {
+		this.nick = nick;
 	}
 }

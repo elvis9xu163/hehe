@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xjd.hehe.dal.mongo.MongoBaseTest;
 import com.xjd.hehe.dal.mongo.ent.Test2Entity;
 import com.xjd.hehe.dal.mongo.ent.TestEntity;
-import com.xjd.hehe.utl.JsonUtil;
 
 public class MongoDaoTest extends MongoBaseTest {
 	private static Logger log = LoggerFactory.getLogger(MongoDaoTest.class);
@@ -42,8 +41,8 @@ public class MongoDaoTest extends MongoBaseTest {
 		}
 
 		{
-			Test2Entity test2 = mongoDao.get(Test2Entity.class, "code =", Test2Entity.CODE);
-			log.debug("test2: {}", JsonUtil.toString(test2));
+//			Test2Entity test2 = mongoDao.get(Test2Entity.class, "code =", Test2Entity.CODE);
+//			log.debug("test2: {}", JsonUtil.toString(test2));
 		}
 	}
 }
