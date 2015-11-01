@@ -31,7 +31,7 @@
 			<array>
 				<value>classpath:props/app.properties</value>
 				<value>file:/data/data/conf/hehe-api.properties</value>
-				<value>file:/data/data/conf/mongo.properties</value>
+				<value>file:/data/data/conf/mongo-${env}.properties</value>
 			</array>
 		</property>
 	</bean>

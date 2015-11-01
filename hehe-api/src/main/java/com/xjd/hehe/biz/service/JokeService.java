@@ -1,8 +1,11 @@
 package com.xjd.hehe.biz.service;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +14,7 @@ import com.xjd.hehe.biz.bo.TopicBo;
 import com.xjd.hehe.biz.utl.BeanTrans;
 import com.xjd.hehe.dal.mongo.dao.JokeDao;
 import com.xjd.hehe.dal.mongo.ent.JokeEntity;
+import com.xjd.hehe.utl.enums.JokeCtypeEnum;
 import com.xjd.hehe.utl.enums.JokeStatusEnum;
 
 /**
@@ -31,6 +35,12 @@ public class JokeService {
 	public JokeBo getJoke(String jid) {
 		JokeEntity jokeEntity = jokeDao.get(jid);
 		JokeBo jokeBo = BeanTrans.trans(jokeEntity);
+		bizProcess(jokeBo);
+		return jokeBo;
+	}
+
+	public void bizProcess(JokeBo jokeBo) {
+		if (jokeBo == null) return;
 		if (jokeBo != null && jokeBo.getStatus() == JokeStatusEnum.AUDIT_FAIL.getCode()) {
 			jokeBo.setTxt(null);
 			jokeBo.setPics(null);
@@ -40,7 +50,6 @@ public class JokeService {
 				jokeBo.getPics().set(i, resourceService.transUrlToOutside(jokeBo.getPics().get(i)));
 			}
 		}
-		return jokeBo;
 	}
 
 	public void consummate(JokeBo jokeBo, boolean user, boolean topic, boolean pjoke) {
@@ -60,5 +69,44 @@ public class JokeService {
 			consummate(joke, true, true, false);
 			jokeBo.setPjoke(joke);
 		}
+	}
+
+	public List<JokeBo> listNewJoke(Date time) {
+		List<JokeEntity> jokeEntityList = jokeDao.getNew(time, 20);
+
+		List<JokeBo> jokeBoList = BeanTrans.transJoke(jokeEntityList);
+		if (jokeBoList != null) {
+			for (JokeBo jokeBo : jokeBoList) {
+				bizProcess(jokeBo);
+				consummate(jokeBo, true, true, true);
+			}
+		}
+
+		return jokeBoList;
+	}
+
+	public JokeBo addJoke(String uid, String txt, String url, String pjid, List<String> topicList) {
+		JokeEntity jokeEntity = new JokeEntity();
+		jokeEntity.setUid(uid);
+		jokeEntity.setTxt(txt);
+		jokeEntity.setPics(Arrays.asList(url));
+		jokeEntity.setPjid(pjid);
+		jokeEntity.setTopics(CollectionUtils.isEmpty(topicList) ? null : topicList);
+
+		byte ctype = 0;
+		if (txt != null && url != null) {
+			ctype = JokeCtypeEnum.TEXT_PIC.getCode();
+		} else if (txt != null) {
+			ctype = JokeCtypeEnum.TEXT.getCode();
+		} else if (url != null) {
+			ctype = JokeCtypeEnum.PIC.getCode();
+		}
+		jokeEntity.setCtype(ctype);
+
+		jokeDao.save(jokeEntity);
+
+		JokeBo jokeBo = BeanTrans.trans(jokeEntity);
+		bizProcess(jokeBo);
+		return jokeBo;
 	}
 }

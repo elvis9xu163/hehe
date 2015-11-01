@@ -32,6 +32,8 @@ public interface RespCode {
 	String RES_0102 = "0102";
 	/** 账号信息填错了啦！*/
 	String RES_0103 = "0103";
+	/** 啥内容都没有，你怎么发得出去，亲！ */
+	String RES_0120 = "0120";
 
 	/** 非法客户端 */
 	String RES_9970 = "9970";

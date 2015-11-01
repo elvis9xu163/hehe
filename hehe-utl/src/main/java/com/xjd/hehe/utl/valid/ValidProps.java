@@ -7,4 +7,6 @@ public interface ValidProps {
 	String UNAME = "uname";
 	String NICK = "nick";
 	String PWD = "pwd";
+	String OID = "oid";
+	String OTYPE = "otype";
 }

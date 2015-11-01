@@ -15,7 +15,7 @@
                        http://www.springframework.org/schema/jee
                        http://www.springframework.org/schema/jee/spring-jee-3.1.xsd">
 
-	<context:property-placeholder file-encoding="UTF-8" location="file:/data/data/conf/mongo.properties" />
+	<context:property-placeholder file-encoding="UTF-8" location="file:/data/data/conf/mongo-${env}.properties" />
 
 	<bean id="mongoClient" class="com.mongodb.MongoClient" destroy-method="close">
 		<constructor-arg type="java.lang.String" value="${mongo.host}"/>

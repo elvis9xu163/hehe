@@ -1,5 +1,8 @@
 package com.xjd.hehe.dal.mongo.dao;
 
+import java.util.Date;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -14,6 +17,15 @@ public class JokeDao extends BaseDao<JokeEntity> {
 	@Autowired
 	public JokeDao(MongoDao mongoDao) {
 		super(JokeEntity.class, mongoDao);
+	}
+
+
+	public List<JokeEntity> getNew(Date time, int limit) {
+		Query<JokeEntity> query = createQuery();
+		if (time != null) {
+			query.field("ctime").lessThan(time);
+		}
+		return query.order("-ctime").limit(limit).asList();
 	}
 
 	// ======= only for spider ========
@@ -44,4 +56,5 @@ public class JokeDao extends BaseDao<JokeEntity> {
 		UpdateOperations<JokeEntity> update = createUpdateOperations().set("status", 2);
 		return getDatastore().update(query, update).getUpdatedCount();
 	}
+
 }

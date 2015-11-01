@@ -4,7 +4,9 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.xjd.hehe.utl.enums.OtypeEnum;
 import com.xjd.hehe.utl.respcode.RespCode;
+import com.xjd.hehe.utl.valid.constraint.ObjectId;
 import com.xjd.hehe.utl.valid.constraint.Timestamp;
 
 
@@ -35,6 +37,14 @@ public class ValidBean {
 
 	@NotBlank(message = RespCode.RES_0012)
 	private String nick;
+
+	@NotBlank(message = RespCode.RES_0012)
+	@ObjectId
+	private String oid;
+
+	@NotBlank(message = RespCode.RES_0012)
+	@com.xjd.hehe.utl.valid.constraint.Enum(enumClass = OtypeEnum.class)
+	private String otype;
 //
 //	@NotBlank(message = RespCode.RES_0012)
 //	@Digits(integer = 18, fraction = 0, message = RespCode.RES_0002)
@@ -184,5 +194,21 @@ public class ValidBean {
 
 	public void setNick(String nick) {
 		this.nick = nick;
+	}
+
+	public String getOid() {
+		return oid;
+	}
+
+	public void setOid(String oid) {
+		this.oid = oid;
+	}
+
+	public String getOtype() {
+		return otype;
+	}
+
+	public void setOtype(String otype) {
+		this.otype = otype;
 	}
 }

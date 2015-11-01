@@ -82,40 +82,4 @@ public class TopicCtrl {
 		return view;
 	}
 
-//	@RequestMapping(value = "/listHotJoke", method = RequestMapping.Method.ALL)
-//	public View listHotJoke(@RequestParam("pcon") String pcon) {
-//		int page = 0;
-//		if (StringUtils.isNotBlank(pcon)) {
-//			try {
-//				page = Integer.parseInt(pcon);
-//				page++;
-//			} catch (NumberFormatException e) {
-//				log.warn("pcon wrong format: " + pcon, e);
-//			}
-//		}
-//
-//
-//		List<TopicBo> hotList = null;
-//		List<String> excludeTids = null;
-//		if (page == 0) {
-//			hotList = configService.listHotTopic();
-//			if (CollectionUtils.isNotEmpty(hotList)) {
-//				for (TopicBo bo : hotList) {
-//					excludeTids.add(bo.getId());
-//				}
-//			}
-//		}
-//
-//		List<TopicBo> list = topicService.listTopic(page, excludeTids);
-//
-//		TopicListBody body = new TopicListBody();
-//		body.setHotTopics(ViewTrans.transTopic(hotList));
-//		body.setTopics(ViewTrans.transTopic(list));
-//		body.setPcon(page + "");
-//
-//		View view = ViewUtil.defaultView();
-//		view.setBody(body);
-//		return view;
-//	}
-
 }

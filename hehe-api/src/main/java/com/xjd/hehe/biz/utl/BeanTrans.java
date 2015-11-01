@@ -37,6 +37,28 @@ public abstract class BeanTrans {
 		return targetList;
 	}
 
+	public static List<JokeBo> transJoke(List<JokeEntity> sourceList) {
+		if (sourceList == null) {
+			return null;
+		}
+		List<JokeBo> targetList = new ArrayList<>(sourceList.size());
+		for (JokeEntity source : sourceList) {
+			targetList.add(trans(source));
+		}
+		return targetList;
+	}
+
+	public static List<CommentBo> transComment(List<CommentEntity> sourceList) {
+		if (sourceList == null) {
+			return null;
+		}
+		List<CommentBo> targetList = new ArrayList<>(sourceList.size());
+		for (CommentEntity source : sourceList) {
+			targetList.add(trans(source));
+		}
+		return targetList;
+	}
+
 	public static TokenBo trans(TokenEntity source) {
 		if (source == null) {
 			return null;
@@ -109,6 +131,20 @@ public abstract class BeanTrans {
 	}
 
 	public static void trans(BannerEntity.Item source, BannerBo target) {
+		BeanUtils.copyProperties(source, target);
+	}
+
+
+	public static CommentBo trans(CommentEntity source) {
+		if (source == null) {
+			return null;
+		}
+		CommentBo target = new CommentBo();
+		trans(source, target);
+		return target;
+	}
+
+	public static void trans(CommentEntity source, CommentBo target) {
 		BeanUtils.copyProperties(source, target);
 	}
 

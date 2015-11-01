@@ -5,10 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 
-import com.xjd.hehe.biz.bo.BannerBo;
-import com.xjd.hehe.biz.bo.JokeBo;
-import com.xjd.hehe.biz.bo.TopicBo;
-import com.xjd.hehe.biz.bo.UserBo;
+import com.xjd.hehe.biz.bo.*;
 
 /**
  * @author elvis.xu
@@ -45,6 +42,17 @@ public class ViewTrans {
 		}
 		List<JokeVo> targetList = new ArrayList<>(sourceList.size());
 		for (JokeBo source : sourceList) {
+			targetList.add(trans(source));
+		}
+		return targetList;
+	}
+
+	public static List<CommentVo> transCmt(List<CommentBo> sourceList) {
+		if (sourceList == null) {
+			return null;
+		}
+		List<CommentVo> targetList = new ArrayList<>(sourceList.size());
+		for (CommentBo source : sourceList) {
 			targetList.add(trans(source));
 		}
 		return targetList;
@@ -103,6 +111,21 @@ public class ViewTrans {
 		target.setUser(trans(source.getUser()));
 		target.setTopics(transTopic(source.getTopicList()));
 		target.setPjoke(trans(source.getPjoke()));
+	}
+
+	public static CommentVo trans(CommentBo source) {
+		if (source == null) {
+			return null;
+		}
+		CommentVo target = new CommentVo();
+		trans(source, target);
+		return target;
+	}
+
+	public static void trans(CommentBo source, CommentVo target) {
+		BeanUtils.copyProperties(source, target);
+		target.setUser(trans(source.getUser()));
+		target.setPcmt(trans(source.getPcmt()));
 	}
 
 }
