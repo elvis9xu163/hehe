@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.xjd.hehe.spider.haha.proc.ImgMd5Processor;
 import com.xjd.hehe.spider.haha.spider.*;
 
 public class Launcher {
@@ -51,6 +52,11 @@ public class Launcher {
 		if (argList.contains("topic_beauty")) {
 			SpiderJokeTopicBeauty jokeText = contxt.getBean(SpiderJokeTopicBeauty.class);
 			jokeText.grap();
+		}
+
+		if (argList.contains("md5")) {
+			ImgMd5Processor bean = contxt.getBean(ImgMd5Processor.class);
+			bean.process();
 		}
 	}
 }

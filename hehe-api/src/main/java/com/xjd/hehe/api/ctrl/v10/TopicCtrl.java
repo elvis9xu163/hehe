@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import com.xjd.hehe.api.cmpt.RequestContext;
 import com.xjd.hehe.api.view.View;
 import com.xjd.hehe.api.view.ViewUtil;
 import com.xjd.hehe.api.view.body.TopicListBody;
@@ -16,6 +17,7 @@ import com.xjd.hehe.api.view.vo.ViewTrans;
 import com.xjd.hehe.biz.bo.TopicBo;
 import com.xjd.hehe.biz.service.ConfigService;
 import com.xjd.hehe.biz.service.TopicService;
+import com.xjd.hehe.utl.ValidUtil;
 import com.xjd.nhs.annotation.RequestMapping;
 import com.xjd.nhs.annotation.RequestParam;
 
@@ -79,6 +81,18 @@ public class TopicCtrl {
 
 		View view = ViewUtil.defaultView();
 		view.setBody(body);
+		return view;
+	}
+
+	@RequestMapping(value = "/followTopic", method = RequestMapping.Method.POST)
+	public View followTopic(@RequestParam("tid") String tid, @RequestParam("follow") String follow) {
+		ValidUtil.check(ValidUtil.OID, tid, ValidUtil.FOLLOW, follow);
+
+		byte followB = Byte.parseByte(follow);
+
+		topicService.followTopic(RequestContext.getUserId(), tid, followB);
+
+		View view = ViewUtil.defaultView();
 		return view;
 	}
 

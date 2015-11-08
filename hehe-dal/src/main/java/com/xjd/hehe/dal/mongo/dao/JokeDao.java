@@ -6,10 +6,12 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xjd.hehe.dal.mongo.ent.JokeEntity;
+import com.xjd.hehe.utl.DateUtil;
 
 @Repository
 public class JokeDao extends BaseDao<JokeEntity> {
@@ -26,6 +28,22 @@ public class JokeDao extends BaseDao<JokeEntity> {
 			query.field("ctime").lessThan(time);
 		}
 		return query.order("-ctime").limit(limit).asList();
+	}
+
+	public int incGood(String oid) {
+		Query<JokeEntity> query = createQuery().filter("id =", new ObjectId(oid));
+		UpdateOperations<JokeEntity> update = createUpdateOperations().inc("ngood").set("utime", DateUtil.now());
+
+		UpdateResults updateResults = getDatastore().update(query, update);
+		return updateResults.getUpdatedCount();
+	}
+
+	public int incBad(String oid) {
+		Query<JokeEntity> query = createQuery().filter("id =", new ObjectId(oid));
+		UpdateOperations<JokeEntity> update = createUpdateOperations().inc("nbad").set("utime", DateUtil.now());
+
+		UpdateResults updateResults = getDatastore().update(query, update);
+		return updateResults.getUpdatedCount();
 	}
 
 	// ======= only for spider ========

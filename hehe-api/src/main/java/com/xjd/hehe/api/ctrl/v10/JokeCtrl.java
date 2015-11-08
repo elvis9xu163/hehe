@@ -133,4 +133,28 @@ public class JokeCtrl {
 		return view;
 	}
 
+	@RequestMapping(value = "/like", method = RequestMapping.Method.POST)
+	public View like(@RequestParam("oid") String oid, @RequestParam("otype") String otype) {
+		ValidUtil.check(ValidUtil.OID, oid, ValidUtil.OTYPE, otype);
+
+		byte otypeB = Byte.parseByte(otype);
+
+		jokeService.like(RequestContext.getUserId(), oid, otypeB, true);
+
+		View view = ViewUtil.defaultView();
+		return view;
+	}
+
+	@RequestMapping(value = "/unlike", method = RequestMapping.Method.POST)
+	public View unlike(@RequestParam("oid") String oid, @RequestParam("otype") String otype) {
+		ValidUtil.check(ValidUtil.OID, oid, ValidUtil.OTYPE, otype);
+
+		byte otypeB = Byte.parseByte(otype);
+
+		jokeService.like(RequestContext.getUserId(), oid, otypeB, false);
+
+		View view = ViewUtil.defaultView();
+		return view;
+	}
+
 }

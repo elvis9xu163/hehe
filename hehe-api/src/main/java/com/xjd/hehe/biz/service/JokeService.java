@@ -12,8 +12,12 @@ import org.springframework.stereotype.Service;
 import com.xjd.hehe.biz.bo.JokeBo;
 import com.xjd.hehe.biz.bo.TopicBo;
 import com.xjd.hehe.biz.utl.BeanTrans;
+import com.xjd.hehe.dal.mongo.dao.CommentDao;
 import com.xjd.hehe.dal.mongo.dao.JokeDao;
+import com.xjd.hehe.dal.mongo.dao.RefGoodUserDao;
 import com.xjd.hehe.dal.mongo.ent.JokeEntity;
+import com.xjd.hehe.dal.mongo.ent.RefGoodUserEntity;
+import com.xjd.hehe.utl.DateUtil;
 import com.xjd.hehe.utl.enums.JokeCtypeEnum;
 import com.xjd.hehe.utl.enums.JokeStatusEnum;
 
@@ -26,11 +30,15 @@ public class JokeService {
 	@Autowired
 	JokeDao jokeDao;
 	@Autowired
+	CommentDao cmtDao;
+	@Autowired
 	UserService userService;
 	@Autowired
 	TopicService topicService;
 	@Autowired
 	ResourceService resourceService;
+	@Autowired
+	RefGoodUserDao refGoodUserJokeDao;
 
 	public JokeBo getJoke(String jid) {
 		JokeEntity jokeEntity = jokeDao.get(jid);
@@ -108,5 +116,33 @@ public class JokeService {
 		JokeBo jokeBo = BeanTrans.trans(jokeEntity);
 		bizProcess(jokeBo);
 		return jokeBo;
+	}
+
+	public void like(String uid, String oid, byte otype, boolean like) {
+		RefGoodUserEntity refGoodUserEntity = refGoodUserJokeDao.getByUidAndOidAndOtype(uid, oid, otype);
+
+		if (refGoodUserEntity == null) {
+			refGoodUserEntity = new RefGoodUserEntity();
+			refGoodUserEntity.setUid(uid);
+			refGoodUserEntity.setOid(oid);
+			refGoodUserEntity.setOtype(otype);
+			refGoodUserEntity.setGb(like ? (byte) 1 : (byte) 0);
+			refGoodUserEntity.setCtime(DateUtil.now());
+			refGoodUserEntity.setUtime(DateUtil.now());
+			refGoodUserJokeDao.save(refGoodUserEntity);
+
+			if (otype == 1) { // joke
+				if (like) {
+					jokeDao.incGood(oid);
+				} else {
+					jokeDao.incBad(oid);
+				}
+			} else { // comment
+				if (like) {
+					cmtDao.incGood(oid);
+				}
+			}
+		}
+		// TODO 提示一点
 	}
 }

@@ -9,4 +9,8 @@ public interface ValidProps {
 	String PWD = "pwd";
 	String OID = "oid";
 	String OTYPE = "otype";
+	String FOLLOW = "follow";
+	String MD5 = "md5";
+	String RESTYPE = "resType";
+	String UPFOR = "upfor";
 }

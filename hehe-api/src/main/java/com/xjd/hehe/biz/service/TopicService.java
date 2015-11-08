@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xjd.hehe.biz.bo.TopicBo;
+import com.xjd.hehe.biz.bo.UserBo;
 import com.xjd.hehe.biz.utl.BeanTrans;
 import com.xjd.hehe.dal.mongo.dao.TopicDao;
+import com.xjd.hehe.dal.mongo.dao.UserDao;
 import com.xjd.hehe.dal.mongo.ent.TopicEntity;
 
 /**
@@ -18,6 +20,10 @@ import com.xjd.hehe.dal.mongo.ent.TopicEntity;
 public class TopicService {
 	@Autowired
 	TopicDao topicDao;
+	@Autowired
+	UserDao userDao;
+	@Autowired
+	UserService userService;
 
 	public TopicBo getTopic(String tid) {
 		TopicEntity topicEntity = topicDao.get(tid);
@@ -30,5 +36,16 @@ public class TopicService {
 
 		List<TopicEntity> topicEntityList = topicDao.getByPage(offset, limit, excludeTids);
 		return BeanTrans.transTopic(topicEntityList);
+	}
+
+	public void followTopic(String uid, String tid, byte follow) {
+		UserBo user = userService.getUser(uid);
+		boolean followed = user != null && user.getTopics() != null && user.getTopics().contains(tid);
+		if (follow == 1 && !followed) {
+			userDao.followTopic(uid, tid);
+
+		} else if (follow == 0 && followed) {
+			userDao.unfollowTopic(uid, tid);
+		}
 	}
 }

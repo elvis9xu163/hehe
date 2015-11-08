@@ -57,6 +57,7 @@ public class SaverImg {
 		int w = bufImg.getWidth();
 		int h = bufImg.getHeight();
 		String md5 = MD5Utils.md5(tmpFile);
+		long size = tmpFile.length();
 
 		// 存储文件
 		String path = "pic/" + md5 + "_" + w + "x" + h + "." + suffix;
@@ -81,6 +82,9 @@ public class SaverImg {
 		entity.setUri(path);
 		entity.setH(h);
 		entity.setW(w);
+		entity.setMd5(md5);
+		entity.setSize(size);
+		entity.setBiz("[JOKE]");
 		entity.setFrom((byte) 10);
 		entity.setRefUrl(refUrlBig);
 		imgDao.save(entity);

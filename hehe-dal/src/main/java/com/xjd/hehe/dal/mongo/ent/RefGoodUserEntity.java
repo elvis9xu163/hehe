@@ -11,7 +11,7 @@ public class RefGoodUserEntity extends BaseEntity {
 	private String oid;
 
 	/** object type */
-	private String otype;
+	private Byte otype;
 
 	/** good or bad: 0-bad, 1-good */
 	private Byte gb;
@@ -32,11 +32,11 @@ public class RefGoodUserEntity extends BaseEntity {
 		this.oid = oid;
 	}
 
-	public String getOtype() {
+	public Byte getOtype() {
 		return otype;
 	}
 
-	public void setOtype(String otype) {
+	public void setOtype(Byte otype) {
 		this.otype = otype;
 	}
 

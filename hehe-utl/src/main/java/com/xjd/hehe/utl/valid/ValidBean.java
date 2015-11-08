@@ -45,6 +45,21 @@ public class ValidBean {
 	@NotBlank(message = RespCode.RES_0012)
 	@com.xjd.hehe.utl.valid.constraint.Enum(enumClass = OtypeEnum.class)
 	private String otype;
+
+	@NotBlank(message = RespCode.RES_0012)
+	@Pattern(regexp = "0|1", message = RespCode.RES_0010)
+	private String follow;
+
+	@NotBlank(message = RespCode.RES_0012)
+	@Pattern(regexp = "1|2", message = RespCode.RES_0010)
+	private String upfor;
+
+	@NotBlank(message = RespCode.RES_0012)
+	@Pattern(regexp = "jpg|jpeg|png|gif", message = RespCode.RES_0010)
+	private String resType;
+
+	@NotBlank(message = RespCode.RES_0012)
+	private String md5;
 //
 //	@NotBlank(message = RespCode.RES_0012)
 //	@Digits(integer = 18, fraction = 0, message = RespCode.RES_0002)
@@ -210,5 +225,37 @@ public class ValidBean {
 
 	public void setOtype(String otype) {
 		this.otype = otype;
+	}
+
+	public String getFollow() {
+		return follow;
+	}
+
+	public void setFollow(String follow) {
+		this.follow = follow;
+	}
+
+	public String getUpfor() {
+		return upfor;
+	}
+
+	public void setUpfor(String upfor) {
+		this.upfor = upfor;
+	}
+
+	public String getResType() {
+		return resType;
+	}
+
+	public void setResType(String resType) {
+		this.resType = resType;
+	}
+
+	public String getMd5() {
+		return md5;
+	}
+
+	public void setMd5(String md5) {
+		this.md5 = md5;
 	}
 }

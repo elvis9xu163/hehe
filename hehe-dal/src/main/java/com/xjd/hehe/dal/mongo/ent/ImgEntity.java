@@ -13,6 +13,16 @@ public class ImgEntity extends BaseEntity {
 	/** 原图宽 */
 	private Integer w;
 
+//	FIXME @Indexed(unique = true, dropDups = true)
+	/** 图片文件的MD5值 */
+	private String md5;
+
+	/** 图片大小 */
+	private Long size;
+
+	/** 图片业务(多个之间用逗号分隔): [JOKE],[AVATAR] */
+	private String biz;
+
 	/** 来源平台：0-自身, 10-哈哈 */
 	private Byte from = 0;
 
@@ -57,5 +67,29 @@ public class ImgEntity extends BaseEntity {
 
 	public void setFrom(Byte from) {
 		this.from = from;
+	}
+
+	public String getMd5() {
+		return md5;
+	}
+
+	public void setMd5(String md5) {
+		this.md5 = md5;
+	}
+
+	public Long getSize() {
+		return size;
+	}
+
+	public void setSize(Long size) {
+		this.size = size;
+	}
+
+	public String getBiz() {
+		return biz;
+	}
+
+	public void setBiz(String biz) {
+		this.biz = biz;
 	}
 }

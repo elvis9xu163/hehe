@@ -6,10 +6,12 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.xjd.hehe.dal.mongo.ent.CommentEntity;
+import com.xjd.hehe.utl.DateUtil;
 
 @Repository
 public class CommentDao extends BaseDao<CommentEntity> {
@@ -30,6 +32,13 @@ public class CommentDao extends BaseDao<CommentEntity> {
 
 	public CommentEntity getByRefId(String id) {
 		return createQuery().filter("ref.id =", id).get();
+	}
+
+	public int incGood(String oid) {
+		Query<CommentEntity> query = createQuery().filter("id =", new ObjectId(oid));
+		UpdateOperations<CommentEntity> update = createUpdateOperations().inc("ngood").set("utime", DateUtil.now());
+		UpdateResults result = getDatastore().update(query, update);
+		return result.getUpdatedCount();
 	}
 
 	// ======= only for spider ========
