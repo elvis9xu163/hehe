@@ -71,7 +71,7 @@ public class OtherCtrl {
 		String url = resourceService.preupload(md5, upforS);
 
 		if (url == null) {
-			url = resourceService.upload(uploadFile, upfor);
+			url = resourceService.upload(uploadFile, upforS);
 		}
 
 		UrlBody body = new UrlBody();
