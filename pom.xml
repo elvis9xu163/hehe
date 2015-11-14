@@ -101,18 +101,34 @@
 
 	<profiles>
 		<profile>
-			<id>dev</id>
+			<id>dev-api</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<properties>
 				<env>dev</env>
+				<api>api</api>
 			</properties>
 		</profile>
 		<profile>
-			<id>pro</id>
+			<id>dev-res</id>
+			<properties>
+				<env>dev</env>
+				<api>res</api>
+			</properties>
+		</profile>
+		<profile>
+			<id>pro-api</id>
 			<properties>
 				<env>pro</env>
+				<api>api</api>
+			</properties>
+		</profile>
+		<profile>
+			<id>pro-res</id>
+			<properties>
+				<env>pro</env>
+				<api>res</api>
 			</properties>
 		</profile>
 	</profiles>

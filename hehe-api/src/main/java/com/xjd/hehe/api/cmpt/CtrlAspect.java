@@ -112,6 +112,15 @@ public class CtrlAspect {
 				// == FIXME 版本升级控制 == //
 
 				// == TODO API状态控制 == //
+				if (AppContext.isApi()) {
+					if ("[preupload][upload]".contains(RequestContext.getApiName())) {
+						throw new BizException(RespCode.RES_9970);
+					}
+				} else {
+					if (!"[preupload][upload]".contains(RequestContext.getApiName())) {
+						throw new BizException(RespCode.RES_9970);
+					}
+				}
 
 
 				rt = (View) jp.proceed();
@@ -121,12 +130,14 @@ public class CtrlAspect {
 					rt = ViewUtil.defaultView(be.getCode(), be.getArgs(), be.getMsg(), be.getOriginalCode(), be.getOrginalMsg());
 					if (be.getCause() != null) {
 						log.error("请求异常: " + fixLogString, t);
+						// TODO 给管理员发邮件
 					} else {
 						log.warn("请求异常: {}, businessException={}", fixLogString, t);
 					}
 				} else {
 					rt = ViewUtil.defaultView(RespCode.RES_9999);
 					log.error("请求异常: " + fixLogString, t);
+					// TODO 给管理员发邮件
 				}
 			} finally {
 				RequestContext.clear();

@@ -20,7 +20,7 @@
 		<property name="locations">
 			<array>
 				<value>file:/data/data/conf/hehe-spider.properties</value>
-				<value>file:/data/data/conf/mongo.properties</value>
+				<value>file:/data/data/conf/mongo-pro.properties</value>
 			</array>
 		</property>
 	</bean>

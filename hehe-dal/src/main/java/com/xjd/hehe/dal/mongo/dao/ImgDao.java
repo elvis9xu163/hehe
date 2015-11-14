@@ -28,6 +28,12 @@ public class ImgDao extends BaseDao<ImgEntity> {
 		return createQuery().filter("uri =", uri).get();
 	}
 
+	public int updateBiz(String id, String biz) {
+		Query<ImgEntity> query = createQuery().filter("id =", id);
+		UpdateOperations<ImgEntity> update = createUpdateOperations().set("biz", biz);
+		UpdateResults result = getDatastore().update(query, update);
+		return result.getUpdatedCount();
+	}
 
 	// ========= only for spider ============
 
@@ -45,5 +51,6 @@ public class ImgDao extends BaseDao<ImgEntity> {
 		UpdateResults result = getDatastore().update(query, update);
 		return result.getUpdatedCount();
 	}
+
 
 }

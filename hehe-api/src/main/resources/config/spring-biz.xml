@@ -30,7 +30,7 @@
 		<property name="locations">
 			<array>
 				<value>classpath:props/app.properties</value>
-				<value>file:/data/data/conf/hehe-api.properties</value>
+				<value>file:/data/data/conf/hehe-api-${env}-${api}.properties</value>
 				<value>file:/data/data/conf/mongo-${env}.properties</value>
 			</array>
 		</property>

@@ -31,7 +31,11 @@ public class AppContext {
 	}
 
 	public static boolean isEnvProduct() {
-		return "product".equalsIgnoreCase(getProperty("env"));
+		return "pro".equalsIgnoreCase(getProperty("env"));
+	}
+
+	public static boolean isApi() {
+		return "api".equalsIgnoreCase(getProperty("api"));
 	}
 
 	public static boolean isPwdField(String name) {

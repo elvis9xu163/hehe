@@ -1,5 +1,6 @@
 package com.xjd.hehe.api.ctrl.v10;
 
+import java.io.IOException;
 import java.util.List;
 
 import io.netty.handler.codec.http.multipart.FileUpload;
@@ -45,7 +46,7 @@ public class OtherCtrl {
 	}
 
 	@RequestMapping(value = "/preupload", method = RequestMapping.Method.ALL)
-	public View preupload(@RequestParam("md5") String md5, @RequestParam("resType") String resType, @RequestParam("upfor") String upfor) {
+	public View preupload(@RequestParam("md5") String md5, @RequestParam("resType") String resType, @RequestParam("upfor") String upfor) throws IOException {
 		ValidUtil.check(ValidUtil.MD5, md5, ValidUtil.RESTYPE, resType, ValidUtil.UPFOR, upfor);
 
 		byte upforB = Byte.parseByte(upfor);
@@ -62,7 +63,7 @@ public class OtherCtrl {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMapping.Method.POST, supportMultipart = true)
-	public View upload(@RequestParam("md5") String md5, @RequestParam("resType") String resType, @RequestParam("upfor") String upfor, @RequestParam("file")FileUpload uploadFile) {
+	public View upload(@RequestParam("md5") String md5, @RequestParam("resType") String resType, @RequestParam("upfor") String upfor, @RequestParam("file")FileUpload uploadFile) throws IOException {
 		ValidUtil.check(ValidUtil.MD5, md5, ValidUtil.RESTYPE, resType, ValidUtil.UPFOR, upfor);
 
 		byte upforB = Byte.parseByte(upfor);
