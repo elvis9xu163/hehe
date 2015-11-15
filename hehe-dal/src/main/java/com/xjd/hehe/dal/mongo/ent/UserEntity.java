@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
 
 @Entity(value = "User", noClassnameStored = true)
 public class UserEntity extends BaseEntity {
@@ -11,9 +12,11 @@ public class UserEntity extends BaseEntity {
 	private String name;
 
 	/** 手机号 */
+	@Indexed
 	private String mobile;
 
 	/** 邮箱 */
+	@Indexed
 	private String mail;
 
 	/** 密码 */

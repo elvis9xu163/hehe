@@ -1,13 +1,16 @@
 package com.xjd.hehe.dal.mongo.ent;
 
-import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "Comment", noClassnameStored = true)
+@Indexes({@Index(fields = @Field("ctime"))})
 public class CommentEntity extends BaseEntity {
 	/** 用户ID */
+	@Indexed
 	private String uid;
 
 	/** 关联的jokeId */
+	@Indexed
 	private String jid;
 
 	/** 回复的commentId */

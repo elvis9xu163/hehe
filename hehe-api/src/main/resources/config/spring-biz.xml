@@ -32,6 +32,7 @@
 				<value>classpath:props/app.properties</value>
 				<value>file:/data/data/conf/hehe-api-${env}-${api}.properties</value>
 				<value>file:/data/data/conf/mongo-${env}.properties</value>
+				<value>file:/data/data/conf/redis.properties</value>
 			</array>
 		</property>
 	</bean>
@@ -57,49 +58,59 @@
 
 	<aop:aspectj-autoproxy />
 
-	<!--<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
+	<bean id="kryoSerializer" class="com.xjd.hehe.cache.KryoSerializer">
+		<property name="classIdMap">
+			<map>
+				<entry key="com.xjd.hehe.dal.mongo.ent.ApiEntity" value="20"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.CommentEntity" value="21"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.ImgEntity" value="22"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.JokeEntity" value="23"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.RefGoodUserEntity" value="24"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.ReqLogEntity" value="25"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.TokenEntity" value="26"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.TopicEntity" value="27"/>
+				<entry key="com.xjd.hehe.dal.mongo.ent.UserEntity" value="28"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg type="java.lang.String" value="${redis.host}"/>
+		<constructor-arg type="int" value="${redis.port}"/>
+	</bean>
+
+	<bean id="cacheManager" class="org.springframework.cache.support.CompositeCacheManager">
 		<property name="cacheManagers">
 			<list>
-				<bean class="org.springframework.cache.guava.GuavaCacheManager">
-					<property name="cacheNames">
-						<set>
-							<value>static</value>
-						</set>
-					</property>
-					<property name="cacheBuilder">
-						<bean class="com.google.common.cache.CacheBuilder" factory-method="from">
-							<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterAccess=6h,softValues" />&lt;!&ndash; 6h &ndash;&gt;
-						</bean>
-					</property>
-				</bean>
-				<bean class="org.springframework.cache.guava.GuavaCacheManager">
-					<property name="cacheNames">
-						<set>
-							<value>user_context</value>
-						</set>
-					</property>
-					<property name="cacheBuilder">
-						<bean class="com.google.common.cache.CacheBuilder" factory-method="from">
-							<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterWrite=5m,softValues" />&lt;!&ndash; 10s &ndash;&gt;
-						</bean>
-					</property>
-				</bean>
-				<bean class="org.springframework.cache.guava.GuavaCacheManager">
-					<property name="cacheNames">
-						<set>
-							<value>entity</value>
-						</set>
-					</property>
-					<property name="cacheBuilder">
-						<bean class="com.google.common.cache.CacheBuilder" factory-method="from">
-							<constructor-arg type="java.lang.String" value="maximumSize=100000,expireAfterWrite=10m,softValues" />&lt;!&ndash; 2m &ndash;&gt;
-						</bean>
+				<bean class="org.springframework.cache.support.SimpleCacheManager">
+					<property name="caches">
+						<list>
+							<bean class="com.xjd.hehe.cache.JedisCache">
+								<property name="name" value="key_map"/>
+								<property name="expireSeconds" value="86400" /><!-- 24h -->
+								<property name="kryoSerializer" ref="kryoSerializer"/>
+								<property name="jedisPool" ref="jedisPool"/>
+							</bean>
+							<bean class="com.xjd.hehe.cache.JedisCache">
+								<property name="name" value="entity"/>
+								<property name="expireSeconds" value="21600" /><!-- 6h -->
+								<property name="kryoSerializer" ref="kryoSerializer"/>
+								<property name="jedisPool" ref="jedisPool"/>
+							</bean>
+							<bean class="com.xjd.hehe.cache.JedisCache">
+								<property name="name" value="tmp"/>
+								<property name="expireSeconds" value="60" /><!-- 1m -->
+								<property name="kryoSerializer" ref="kryoSerializer"/>
+								<property name="jedisPool" ref="jedisPool"/>
+							</bean>
+						</list>
 					</property>
 				</bean>
 			</list>
 		</property>
+		<property name="fallbackToNoOpCache" value="false"/>
 	</bean>
 
-	<cache:annotation-driven proxy-target-class="true" />-->
+	<cache:annotation-driven proxy-target-class="true" />
 
 </beans>

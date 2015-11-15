@@ -1,6 +1,7 @@
 package com.xjd.hehe.dal.mongo.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Repository;
 
 import com.xjd.hehe.dal.mongo.ent.ApiEntity;
@@ -12,7 +13,7 @@ import com.xjd.hehe.dal.mongo.ent.ApiEntity;
 @Repository
 public class ApiDao extends BaseDao<ApiEntity> {
 	@Autowired
-	public ApiDao(MongoDao mongoDao) {
-		super(ApiEntity.class, mongoDao);
+	public ApiDao(MongoDao mongoDao, CacheManager cacheManager) {
+		super(ApiEntity.class, mongoDao, cacheManager);
 	}
 }

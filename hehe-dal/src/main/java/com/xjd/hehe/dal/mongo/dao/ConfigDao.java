@@ -2,6 +2,7 @@ package com.xjd.hehe.dal.mongo.dao;
 
 import org.mongodb.morphia.Datastore;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.xjd.hehe.dal.mongo.ent.config.ConfigEntity;
@@ -16,6 +17,7 @@ public class ConfigDao {
 	@Autowired
 	Datastore datastore;
 
+	@Cacheable(value="entity", key="'ENT:Config:' + #code")
 	public <T extends ConfigEntity> T get(String code, Class<T> clazz) {
 		return datastore.createQuery(clazz).field("code").equal(code).get();
 	}

@@ -8,6 +8,8 @@ import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Repository;
 
 import com.xjd.hehe.dal.mongo.ent.JokeEntity;
@@ -17,8 +19,8 @@ import com.xjd.hehe.utl.DateUtil;
 public class JokeDao extends BaseDao<JokeEntity> {
 
 	@Autowired
-	public JokeDao(MongoDao mongoDao) {
-		super(JokeEntity.class, mongoDao);
+	public JokeDao(MongoDao mongoDao, CacheManager cacheManager) {
+		super(JokeEntity.class, mongoDao, cacheManager);
 	}
 
 
@@ -30,6 +32,7 @@ public class JokeDao extends BaseDao<JokeEntity> {
 		return query.order("-ctime").limit(limit).asList();
 	}
 
+	@CacheEvict(value = "entity", key="'ENT:JokeEntity:' + #oid")
 	public int incGood(String oid) {
 		Query<JokeEntity> query = createQuery().filter("id =", new ObjectId(oid));
 		UpdateOperations<JokeEntity> update = createUpdateOperations().inc("ngood").set("utime", DateUtil.now());
@@ -38,6 +41,7 @@ public class JokeDao extends BaseDao<JokeEntity> {
 		return updateResults.getUpdatedCount();
 	}
 
+	@CacheEvict(value = "entity", key="'ENT:JokeEntity:' + #oid")
 	public int incBad(String oid) {
 		Query<JokeEntity> query = createQuery().filter("id =", new ObjectId(oid));
 		UpdateOperations<JokeEntity> update = createUpdateOperations().inc("nbad").set("utime", DateUtil.now());
@@ -69,6 +73,7 @@ public class JokeDao extends BaseDao<JokeEntity> {
 		return getDatastore().update(query, update).getUpdatedCount();
 	}
 
+	@CacheEvict(value = "entity", key="'ENT:JokeEntity:' + #oid")
 	public int auditFail(String id) {
 		Query<JokeEntity> query = createQuery().filter("_id =", new ObjectId(id));
 		UpdateOperations<JokeEntity> update = createUpdateOperations().set("status", 2);

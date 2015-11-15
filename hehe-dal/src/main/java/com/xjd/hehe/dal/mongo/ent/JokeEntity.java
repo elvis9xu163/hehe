@@ -2,11 +2,13 @@ package com.xjd.hehe.dal.mongo.ent;
 
 import java.util.List;
 
-import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.*;
 
 @Entity(value = "Joke", noClassnameStored = true)
+@Indexes({@Index(fields = @Field("ctime"))})
 public class JokeEntity extends BaseEntity {
 	/** 用户ID */
+	@Indexed
 	private String uid;
 
 	/**

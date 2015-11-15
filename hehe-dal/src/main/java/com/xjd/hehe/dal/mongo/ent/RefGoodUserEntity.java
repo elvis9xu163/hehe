@@ -1,13 +1,16 @@
 package com.xjd.hehe.dal.mongo.ent;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
 
 @Entity(value = "RefGoodUser", noClassnameStored = true)
 public class RefGoodUserEntity extends BaseEntity {
 	/** user id */
+	@Indexed
 	private String uid;
 
 	/** object id */
+	@Indexed
 	private String oid;
 
 	/** object type */

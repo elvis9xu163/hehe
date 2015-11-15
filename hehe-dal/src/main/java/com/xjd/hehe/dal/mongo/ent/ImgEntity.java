@@ -1,10 +1,12 @@
 package com.xjd.hehe.dal.mongo.ent;
 
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
 
 @Entity(value = "Img", noClassnameStored = true)
 public class ImgEntity extends BaseEntity {
 	/** 本系统中的URI */
+	@Indexed
 	private String uri;
 
 	/** 原图高 */
@@ -14,6 +16,7 @@ public class ImgEntity extends BaseEntity {
 	private Integer w;
 
 //	FIXME @Indexed(unique = true, dropDups = true)
+	@Indexed
 	/** 图片文件的MD5值 */
 	private String md5;
 
