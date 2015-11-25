@@ -5,15 +5,15 @@ import java.io.ByteArrayOutputStream;
 import java.net.SocketException;
 import java.nio.charset.Charset;
 
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.exceptions.JedisConnectionException;
+
 import org.perf4j.aop.Profiled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
 import org.springframework.cache.support.SimpleValueWrapper;
-
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.exceptions.JedisConnectionException;
 
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
@@ -122,6 +122,7 @@ public class JedisCache implements Cache {
 					jedis.set(key, bytes);
 					jedis.expire(key, expireSeconds);
 				}
+				return;
 			} catch (JedisConnectionException e) {
 				if (e.getCause() != null && e.getCause() instanceof SocketException
 						&& e.getCause().getMessage().indexOf("Broken pipe") != -1) {
